@@ -11,7 +11,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cloud_app_bucket_
   bucket = aws_s3_bucket.cloud_app_bucket.id
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -23,7 +23,7 @@ resource "aws_s3_bucket_cors_configuration" "cloud_app_cors_config" {
     allowed_headers = ["*"]
     allowed_methods = ["GET", "HEAD", "POST", "PUT"]
     allowed_origins = ["*"]
-    expose_headers = ["etag"]
+    expose_headers  = ["etag"]
   }
 }
 
@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "cloud_app_policy_doc" {
 }
 
 resource "aws_iam_policy" "cloud_app_policy" {
-  name = "CloudAppIAMPolicy"
+  name   = "CloudAppIAMPolicy"
   policy = data.aws_iam_policy_document.cloud_app_policy_doc.json
 }
 
@@ -54,6 +54,6 @@ resource "aws_iam_group" "cloud_app_group" {
 }
 
 resource "aws_iam_group_policy_attachment" "cloud_app_group_attachment" {
-  group = aws_iam_group.cloud_app_group.name
+  group      = aws_iam_group.cloud_app_group.name
   policy_arn = aws_iam_policy.cloud_app_policy.arn
 }
